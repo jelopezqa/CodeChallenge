@@ -1,51 +1,52 @@
 package code.tests;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
-import com.drivers.BaseClass;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import pageObjects.ArticlesPage;
 
-public class SearchingAndValidating extends BaseClass{
+public class SearchingAndValidating{
+	
+	private WebDriver driver;
+	private static String url = "http://automationpractice.com/index.php";
+	ArticlesPage ipage;
+	String validItem = "chiffon";
+	String invalidItem = "sdfsdf";
+	
+	@BeforeTest
+	public void setUp() throws Exception {
+		ipage = new ArticlesPage(driver);
+		driver = ipage.chromeDriverConnection();
+		ipage.visitPage(url);
+	}
+	
 		
-	@Test(enabled=false)
+	@Test
 	public void SearchItems() throws InterruptedException {
-		ArticlesPage ipage = new ArticlesPage(driver);
-		ipage.searchingBox.sendKeys("chiffon");
-		Thread.sleep(1000);
-		ipage.buttonSearch.click();
-		Thread.sleep(2000);
-		String result = ipage.textResult.getText();
-		System.out.println("Result: "+result);
-		result = result.substring(0,1);
-		System.out.println("Result: "+result);
-		Assert.assertNotEquals(result, 0, "The search found 0 results");
+		String msgResult = ipage.searchingItem(validItem);
+		Assert.assertEquals(msgResult, "2 results have been found.", "The search found 0 results");
 	}
 	
-	@Test(enabled=false)
+	@Test
 	public void SearchInvalidItem() throws InterruptedException {
-		ArticlesPage ipage = new ArticlesPage(driver);
-		ipage.searchingBox.sendKeys("sdfsdf");
-		Thread.sleep(1000);
-		ipage.buttonSearch.click();
-		Thread.sleep(2000);
-		String result = ipage.textNoResult.getText();
-		System.out.println("Result: "+result);
-		result = result.substring(0,10);
-		System.out.println("Result: "+result);
-		Assert.assertEquals(result, "No results", "The search found results");
+		String msgRes = ipage.searchingItem(invalidItem);
+		Assert.assertEquals(msgRes, "0 results have been found.", "The search found results");
 	}
 	
-	@Test(enabled=true)
+	@Test
 	public void ScrollingtoFooter() throws InterruptedException {
-		ArticlesPage ipage = new ArticlesPage(driver);
-		JavascriptExecutor jse = (JavascriptExecutor) driver;
-		jse.executeScript("arguments[0].scrollIntoView();", ipage.emailInfo);
-		String email= ipage.emailInfo.getText();
-		System.out.println("Email info: "+email);
+		String email = ipage.gettingEmail();
 		Assert.assertNotEquals(email, "", "You have not reached out the footer");
+	}
+	
+	@AfterTest
+	public void closingBrowser() throws InterruptedException {
+		Thread.sleep(2000);
+		driver.quit();
 	}
 
 }

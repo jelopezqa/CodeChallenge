@@ -1,100 +1,128 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 
 import com.drivers.BaseClass;
 
 public class ArticlesPage extends BaseClass{
 	
+	
 	public ArticlesPage(WebDriver driver) {
+		super(driver);
 	}
 	
-	@FindBy(xpath="//ul[@id='home-page-tabs']/li/a[@class='blockbestsellers']")
-	public WebElement linkBestSeller;
+	By linkBestSeller = By.linkText("BEST SELLERS");
+	By linkWomen = By.linkText("WOMEN");
+	By linkDresses = By.linkText("DRESSES");
+	By linkTShirts = By.linkText("T-SHIRTS");
+	By firstIndexItem = By.xpath("//img[@src='http://automationpractice.com/img/p/8/8-home_default.jpg']");
+	By secondtIndexItem = By.xpath("//img[@src='http://automationpractice.com/img/p/1/0/10-home_default.jpg']");
+	By AddtoIndexCart1 = By.xpath("//div[@class='button-container']/a[@data-id-product='3']");
+	By AddtoIndexCart2 = By.xpath("//div[@class='button-container']/a[@data-id-product='4']");
+	By firstDresstItem = By.xpath("//img[@src='http://automationpractice.com/img/p/1/0/10-home_default.jpg']");
+	By secondDressItem = By.xpath("//img[@src='http://automationpractice.com/img/p/1/6/16-home_default.jpg']");
+	By firstWomenItem = By.xpath("//img[@src='http://automationpractice.com/img/p/7/7-home_default.jpg']");
+	By AddtoDressCart1 = By.xpath("//div[@class='button-container']/a[@data-id-product='4']");
+	By AddtoDressCart2 = By.xpath("//div[@class='button-container']/a[@data-id-product='6']");
+	By secondWomenItem = By.xpath("//img[@src='http://automationpractice.com/img/p/1/2/12-home_default.jpg']");
+	By AddWomentoCart1 = By.xpath("//div[@class='button-container']/a[@data-id-product='2']");
+	By AddWomentoCart2 = By.xpath("//div[@class='button-container']/a[@data-id-product='5']");
+	By firstTshirtItem = By.xpath("//img[@src='http://automationpractice.com/img/p/1/1-home_default.jpg']");
+	By AddTshirttoCart = By.xpath("//div[@class='button-container']/a[@data-id-product='1']");
+	By closePopupWindow = By.xpath("//div[@class='button-container']/span[@title='Continue shopping']");
+	By buttonCart = By.xpath("//div[@class='shopping_cart']/a[@title='View my shopping cart']");
+	By listItems = By.xpath("//div[@id='order-detail-content']/table/tbody");
+	By searchingBox = By.id("search_query_top");
+	By buttonSearch = By.xpath("//button[@name='submit_search']");
+	By removeItem = By.xpath("//div/a[@class='cart_quantity_delete']");
+	By messageCart = By.xpath("//p[@class='alert alert-warning']");
+	By emailInfo = By.xpath("//*[@id='block_contact_infos']/div/ul/li/span/a");
+	By messageResult = By.xpath("//span[@class='heading-counter']");
 	
-	@FindBy(xpath="//div[@id='block_top_menu']/ul/li/a[@title='Women']")
-	public WebElement linkWoman;
+	public void selectingfromIndex() throws InterruptedException {
+		if(isDisplayed(firstIndexItem)) {
+			moveTo(firstIndexItem);
+			click(AddtoIndexCart1);
+			closePopup(closePopupWindow);
+			Thread.sleep(1000);
+			moveTo(secondtIndexItem);
+			click(AddtoIndexCart2);
+			closePopup(closePopupWindow);
+			Thread.sleep(1000);
+		}else {
+			System.out.println("No element found");
+		}
+		click(buttonCart);
+		Assert.assertNotNull(findElements(listItems).size(), "No items were selected");
+	}
 	
-	@FindBy(xpath="//div[@id='block_top_menu']/ul/li/a[@title='Dresses']")
-	public WebElement linkDresses;
+	public void selectingfromDresses() throws InterruptedException {
+		click(linkDresses);
+		moveTo(firstDresstItem);
+		click(AddtoDressCart1);
+		closePopup(closePopupWindow);
+		Thread.sleep(1000);
+		moveTo(secondDressItem);
+		click(AddtoDressCart2);
+		closePopup(closePopupWindow);
+		Thread.sleep(1000);
+		click(buttonCart);
+		Assert.assertNotNull(findElements(listItems).size(), "No items were selected");
+	}
 	
-	@FindBy(xpath="//div[@id='block_top_menu']/ul/li/a[@title='T-shirts']")
-	public WebElement linkTShirts;
+	public void selectingfromWomen() throws InterruptedException {
+		click(linkWomen);
+		if(isDisplayed(firstWomenItem)) {
+			moveTo(firstWomenItem);
+			click(AddWomentoCart1);
+			closePopup(closePopupWindow);
+			Thread.sleep(1000);
+			moveTo(secondWomenItem);
+			click(AddWomentoCart2);
+			closePopup(closePopupWindow);
+			Thread.sleep(1000);
+		}else {
+			System.out.println("No such element");
+		}
+		click(buttonCart);
+		Assert.assertNotNull(findElements(listItems).size(), "No items were selected");
+	}
 	
-	@FindBy(xpath="//ul[@id='homefeatured']/li/div/div/div/a[@class='product_img_link' and @title='Printed Dress']")
-	public  WebElement firstIndexItem;
+	public void selectingfromTshirs() throws InterruptedException {
+		click(linkTShirts);
+		moveTo(firstTshirtItem);
+		click(AddTshirttoCart);
+		closePopup(closePopupWindow);
+		Thread.sleep(1000);
+		click(buttonCart);
+		Assert.assertNotNull(findElements(listItems).size(), "No items were selected");
+	}
 	
-	@FindBy(xpath="//*[@id=\"homefeatured\"]/li[4]/div/div[1]/div/a[1]/img")
-	public WebElement secondtIndexItem;
+	public void removingItemfroCart() throws InterruptedException {
+		moveTo(firstIndexItem);
+		click(AddtoIndexCart1);
+		closePopup(closePopupWindow);
+		click(buttonCart);
+		click(removeItem);
+		Thread.sleep(1000);
+		System.out.println("Message: "+getText(messageCart));
+		Assert.assertEquals(getText(messageCart), "Your shopping cart is empty.", "There is some product into Shopping cart");
+	}
 	
-	@FindBy(xpath="//div[@class='button-container']/a[@data-id-product='3']")
-	public WebElement AddtoIndexCart1;
-	
-	@FindBy(xpath="//div[@class='button-container']/a[@data-id-product='4']")
-	public WebElement AddtoIndexCart2;	
-	
-	@FindBy(xpath="//*[@id=\"center_column\"]/ul/li[4]/div/div[1]/div/a[1]/img")
-	public WebElement firstDresstItem;
+	public String searchingItem(String item) throws InterruptedException {
+		type(item, searchingBox);
+		Thread.sleep(1000);
+		click(buttonSearch);
+		Thread.sleep(1000);
+		return getText(messageResult);
 		
-	@FindBy(xpath="//div[@class='product-container']/div/div/a/img[@title='Printed Chiffon Dress']")
-	public WebElement secondDressItem;
+	}
 	
-	@FindBy(xpath="//div[@class='product-image-container']/a/img[@title='Blouse']")
-	public WebElement firstWomenItem;
-	
-	@FindBy(xpath="//*[@id=\"center_column\"]/ul/li[5]/div/div[1]/div/a[1]/img")
-	public WebElement secondWomenItem;
-	
-	@FindBy(xpath="//div[@class='button-container']/a[@data-id-product='2']")
-	public WebElement AddWomentoCart1;
-	
-	@FindBy(xpath="//div[@class='button-container']/a[@data-id-product='5']")
-	public WebElement AddWomentoCart2;
-	
-	@FindBy(xpath="//div[@class='product-image-container']/a/img[@title='Faded Short Sleeve T-shirts']")
-	public WebElement firstTshirtItem;
-	
-	@FindBy(xpath="//div[@class='button-container']/a[@data-id-product='1']")
-	public WebElement AddTshirttoCart;
-	
-	@FindBy(xpath="//*[@class='button ajax_add_to_cart_button btn btn-default' and @data-id-product='3' and xpath='1']")
-	public WebElement firstAddtoCartItem;
-	
-	@FindBy(xpath="//*[@class='button ajax_add_to_cart_button btn btn-default' and @data-id-product='4' and @xpath='1']")
-	public WebElement seconAddtoCartdItem;
-	
-	@FindBy(xpath="//div[@class='button-container']/a[@data-id-product='6']")
-	public WebElement AddtoDressCart1;
-	
-	@FindBy(xpath="//div[@class='button-container']/a[@data-id-product='7']")
-	public WebElement AddtoDressCart2;
-	
-	@FindBy(xpath="//div[@class='shopping_cart']/a[@title='View my shopping cart']")
-	public WebElement buttonCart;
-	
-	@FindBy(xpath="//*[@id=\"layer_cart\"]/div[1]/div[1]/span")
-	public WebElement closePopupWindow;
-	
-	@FindBy(id="search_query_top")
-	public WebElement searchingBox;
-	
-	@FindBy(xpath="//*[@id=\"searchbox\"]/button")
-	public WebElement buttonSearch;
-	
-	@FindBy(xpath="//*[@id=\"center_column\"]/h1/span[2]")
-	public WebElement textResult;
-	
-	@FindBy(xpath="//*[@id=\"center_column\"]/p")
-	public WebElement textNoResult;
-	
-	@FindBy(xpath="//*[@id=\"block_contact_infos\"]/div/ul/li/span/a")
-	public WebElement emailInfo;
-	
-	
-		
-	
-	
-
+	public String gettingEmail() throws InterruptedException {
+		moveTo(emailInfo);
+		Thread.sleep(2000);
+		return getText(emailInfo);
+	}
 }

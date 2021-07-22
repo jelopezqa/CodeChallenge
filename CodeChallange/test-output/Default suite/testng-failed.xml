@@ -5,9 +5,9 @@
     <classes>
       <class name="code.tests.SearchingAndValidating">
         <methods>
-          <include name="ScrollingtoFooter"/>
-          <include name="setUpApplication"/>
+          <include name="SearchItems"/>
           <include name="closingBrowser"/>
+          <include name="setUp"/>
         </methods>
       </class> <!-- code.tests.SearchingAndValidating -->
     </classes>
