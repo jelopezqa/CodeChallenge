@@ -1,33 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="3" passed="3">
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="16400" started-at="2021-07-21T23:51:34 CST" finished-at="2021-07-21T23:51:50 CST">
+  <suite name="Default suite" duration-ms="5996" started-at="2021-07-29T20:50:42 CST" finished-at="2021-07-29T20:50:48 CST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="16400" started-at="2021-07-21T23:51:34 CST" finished-at="2021-07-21T23:51:50 CST">
-      <class name="code.tests.SearchingAndValidating">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:code.tests.SearchingAndValidating@10a035a0]" name="setUp" is-config="true" duration-ms="4450" started-at="2021-07-21T23:51:34 CST" finished-at="2021-07-21T23:51:38 CST">
+    <test name="Default test" duration-ms="5996" started-at="2021-07-29T20:50:42 CST" finished-at="2021-07-29T20:50:48 CST">
+      <class name="api.test.GetInfoCharacters">
+        <test-method status="PASS" signature="getInfoChars()[pri:0, instance:api.test.GetInfoCharacters@8e24743]" name="getInfoChars" duration-ms="3672" started-at="2021-07-29T20:50:42 CST" finished-at="2021-07-29T20:50:46 CST">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="ScrollingtoFooter()[pri:0, instance:code.tests.SearchingAndValidating@10a035a0]" name="ScrollingtoFooter" duration-ms="2275" started-at="2021-07-21T23:51:38 CST" finished-at="2021-07-21T23:51:40 CST">
+        </test-method> <!-- getInfoChars -->
+        <test-method status="PASS" signature="getWWBirthday()[pri:0, instance:api.test.GetInfoCharacters@8e24743]" name="getWWBirthday" duration-ms="2276" started-at="2021-07-29T20:50:46 CST" finished-at="2021-07-29T20:50:48 CST">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- ScrollingtoFooter -->
-        <test-method status="PASS" signature="SearchInvalidItem()[pri:0, instance:code.tests.SearchingAndValidating@10a035a0]" name="SearchInvalidItem" duration-ms="3804" started-at="2021-07-21T23:51:40 CST" finished-at="2021-07-21T23:51:44 CST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- SearchInvalidItem -->
-        <test-method status="PASS" signature="SearchItems()[pri:0, instance:code.tests.SearchingAndValidating@10a035a0]" name="SearchItems" duration-ms="3111" started-at="2021-07-21T23:51:44 CST" finished-at="2021-07-21T23:51:47 CST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- SearchItems -->
-        <test-method status="PASS" signature="closingBrowser()[pri:0, instance:code.tests.SearchingAndValidating@10a035a0]" name="closingBrowser" is-config="true" duration-ms="2697" started-at="2021-07-21T23:51:47 CST" finished-at="2021-07-21T23:51:50 CST">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- closingBrowser -->
-      </class> <!-- code.tests.SearchingAndValidating -->
+        </test-method> <!-- getWWBirthday -->
+      </class> <!-- api.test.GetInfoCharacters -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
